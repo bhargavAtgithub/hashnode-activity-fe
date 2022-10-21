@@ -1,0 +1,15 @@
+{
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended"],
+  // React will always be defined even if we don't specifically import it
+  "globals": {
+    "React": "readonly"
+  },
+  "rules": {
+    // prefix variables with an underscore _ if you have declared them
+    // but not used them in the code
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
+  },
+  "env": {
+    "es6": true
+  }
+}
