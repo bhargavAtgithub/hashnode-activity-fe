@@ -17,3 +17,5 @@ const Post = ({ post_data }) => {
     </>
   );
 };
+
+export default Post;
