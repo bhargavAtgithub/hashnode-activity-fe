@@ -12,7 +12,7 @@ export const styles = {
     }
     return 'none';
   },
-  maxHeight: ({ theme, size, maxLines }) => {
+  maxHeight: ({ size, maxLines }) => {
     if (maxLines) {
       const lineHeight = VARIENTS.height[size];
       const maxHeight = parseFloat(lineHeight) * maxLines;
@@ -45,7 +45,7 @@ export const styles = {
     }
     return '';
   },
-  weight: ({ theme, weight }) => {
+  weight: ({ weight }) => {
     if (weight) {
       return VARIENTS.weight[weight];
     }

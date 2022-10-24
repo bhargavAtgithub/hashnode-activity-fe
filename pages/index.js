@@ -1,8 +1,7 @@
 /**
  * Permanent re-direct to /activity
  */
-
-import Head from 'next/head';
+import React from 'react';
 
 export default function Home() {
   return <></>;
