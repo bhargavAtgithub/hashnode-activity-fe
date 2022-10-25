@@ -12,7 +12,7 @@ import { useTheme } from 'styled-components';
 import useApp from '../services/app/useApp';
 import useActivities from '../components/activities/useActivities';
 
-import LayoutContainer from './containers/LayoutContainer';
+import LayoutContainer from './containers/layoutContainer';
 import Header from './containers/header';
 import Main from './containers/main';
 import Footer from './containers/footer';
