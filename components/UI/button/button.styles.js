@@ -1,6 +1,36 @@
 import styled from 'styled-components';
 import VARIENTS from './button.properties';
 
+const styles = {
+  background: ({ theme, varient, isIcon }) => {
+    if (isIcon) return 'transparent';
+    switch (varient) {
+      case 1:
+        return theme.colors['BUTTON'];
+      case 2:
+        return 'transparent';
+    }
+  },
+  border: ({ theme, varient, isIcon }) => {
+    if (isIcon) return 'transparent';
+    switch (varient) {
+      case 1:
+        return 'transparent';
+      case 2:
+        return `1px solid ${theme.colors['BUTTON']}`;
+    }
+  },
+  borderRadius: ({ varient, isIcon }) => {
+    if (isIcon) return '50%';
+    switch (varient) {
+      case 1:
+        return '10rem';
+      case 2:
+        return `1rem`;
+    }
+  },
+};
+
 const ButtonStyles = styled.button`
   display: flex;
   align-items: center;
@@ -9,8 +39,9 @@ const ButtonStyles = styled.button`
   box-sizing: border-box;
 
   padding: ${(props) => (props.isIcon ? '0.5rem' : '0.5rem 2rem')};
-  border-radius: ${(props) => (props.isIcon ? '50%' : '10rem')};
-  border: none;
+
+  border-radius: ${styles.borderRadius};
+  border: ${styles.border};
 
   cursor: pointer;
 
@@ -24,8 +55,7 @@ const ButtonStyles = styled.button`
   }
 
   transition: all 0.2s;
-  background: ${(props) =>
-    props.isIcon ? 'transparent' : props.theme.colors['BUTTON']};
+  background: ${styles.background};
 
   &:active {
     box-shadow: 0px 0.2rem 0.5rem rgb(0 0 0 / 2%);
@@ -40,7 +70,7 @@ const ButtonStyles = styled.button`
 `;
 
 const IconStyles = {
-  height: ({ theme, size }) => {
+  height: ({ size }) => {
     const lineHeight = VARIENTS.height[size];
     return lineHeight + 'rem';
   },

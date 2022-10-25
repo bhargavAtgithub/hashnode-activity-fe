@@ -1,11 +1,18 @@
 import axios from 'axios';
 
-const hello = async (method = 'GET', url, data = {}) => {
+const hello = async ({
+  method = 'GET',
+  url,
+  externalUrl = '',
+  data = {},
+  headers = {},
+}) => {
   try {
     const config = {};
     config.method = method;
-    config.url = process.env.NEXT_PUBLIC_API_URL + url;
-    config.headers = {};
+    config.url =
+      externalUrl !== '' ? externalUrl : process.env.NEXT_PUBLIC_API_URL + url;
+    config.headers = { ...headers };
 
     if (method !== 'GET' && method !== 'DELETE') {
       config.data = data;

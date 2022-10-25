@@ -8,11 +8,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import * as Containers from './activities.containers';
+import * as Containers from './activity.containers';
 
 import { Spacer, Text } from '../UI';
 import { Divider } from './activity.styles';
-import { Reply, Write } from '../../icons';
+import { Reply, Write, Comment } from '../../icons';
 
 const Activity = ({ activity }) => {
   const date = new Date(activity.date);
@@ -25,7 +25,7 @@ const Activity = ({ activity }) => {
       case 'WRITE':
         return <Write />;
       case 'COMMENT':
-        return <></>;
+        return <Comment />;
       case 'REPLY':
         return <Reply />;
     }
@@ -70,8 +70,13 @@ const Activity = ({ activity }) => {
               </Text>
             </Containers.ActivityTypeContainer>
             <Spacer y={[0.5]} />
-            <Link href={`/post/${item.postId}`} passHref>
-              <a>
+            <Link
+              href={`/post/${item.postId}${
+                item.type == 'COMMENT' ? `#${item.commentId}` : ''
+              }`}
+              passHref
+            >
+              <a target={'_blank'}>
                 <Text weight={'md'} cursor="pointer">
                   {item.title}
                 </Text>

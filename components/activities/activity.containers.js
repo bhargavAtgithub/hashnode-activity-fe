@@ -73,6 +73,42 @@ const ActivityTypeContainer = styled.div`
   width: 100%;
 `;
 
+const ShowMoreContainer = styled.div`
+  width: 100%;
+  padding: 0.5rem 0rem;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: 1px solid ${(props) => props.theme.colors['BORDER']};
+`;
+
+const ShowMoreIconContainer = styled(ActivityIconContainer)`
+  width: 1.8rem;
+  height: 1.8rem;
+  path {
+    fill: ${(props) => props.theme.colors['BUTTON']};
+    stroke: ${(props) => props.theme.colors['BUTTON']};
+  }
+`;
+
+const ActivityLoaderHeader = styled.div`
+  width: 6rem;
+  height: 2rem;
+
+  border-radius: 0.5rem;
+
+  background-color: ${(props) => props.theme.colors['ICON']};
+`;
+
+const ActivityLoaderLine1 = styled(ActivityLoaderHeader)`
+  width: 100%;
+`;
+
+const ActivityLoaderLine2 = styled(ActivityLoaderHeader)`
+  width: calc(100% - 6rem);
+`;
+
 export {
   ActivitiesContainer,
   ActivityContainer,
@@ -81,4 +117,9 @@ export {
   ActivityDetailsContainer,
   ActivityIconContainer,
   ActivityTypeContainer,
+  ShowMoreContainer,
+  ShowMoreIconContainer,
+  ActivityLoaderHeader,
+  ActivityLoaderLine1,
+  ActivityLoaderLine2,
 };

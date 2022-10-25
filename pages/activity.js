@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 import hello from '../services/app/hello';
-
+import useActivities from '../components/activities/useActivities';
 import Activities from '../components/activities';
 
-const Activity = ({ activities }) => {
-  console.log(activities);
+const Activity = ({ activitiesObj }) => {
+  const activities = useActivities();
+
+  useEffect(() => {
+    activities.updateActivities(activitiesObj);
+  }, [activitiesObj]);
+
   return (
     <>
       <Head>
@@ -17,18 +22,18 @@ const Activity = ({ activities }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Activities activities={activities} />
+      <Activities />
     </>
   );
 };
 
 export async function getServerSideProps(_context) {
   try {
-    const response = await hello('GET', '/activities');
+    const response = await hello({ method: 'GET', url: '/activities' });
 
     return {
       props: {
-        activities: response,
+        activitiesObj: response,
       },
     };
   } catch (error) {

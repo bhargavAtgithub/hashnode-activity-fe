@@ -10,7 +10,7 @@ const Header = styled.header`
   padding: 1rem 2rem;
 
   background-color: ${(props) => props.theme.colors.BASE};
-  border: 1px solid ${(props) => props.theme.colors.BORDER};
+  border-bottom: 1px solid ${(props) => props.theme.colors.BORDER};
 `;
 
 export default Header;

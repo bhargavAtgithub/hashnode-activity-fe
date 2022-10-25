@@ -57,10 +57,16 @@ export const styles = {
   lgSize: ({ size }) => {
     return VARIENTS.size[size.length > 1 ? size[1] : size[0]];
   },
-  height: ({ size }) => {
+  height: ({ size, lineHeight }) => {
+    if (lineHeight) {
+      return VARIENTS.height[lineHeight];
+    }
     return VARIENTS.height[size];
   },
-  lgHeight: ({ size }) => {
+  lgHeight: ({ size, lineHeight }) => {
+    if (lineHeight) {
+      return VARIENTS.height[lineHeight];
+    }
     return VARIENTS.height[size.length > 1 ? size[1] : size[0]];
   },
   color: ({ theme, color }) => {
@@ -91,8 +97,6 @@ const TextStylesContainer = styled.div`
   word-break: break-word;
 
   cursor: ${(props) => props.cursor};
-
-  transition: all 300ms linear;
 
   &::after {
     content: '${styles.ellipsis}';

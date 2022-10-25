@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
 
-const Post = ({ post_data }) => {
-  console.log(post_data);
+import hello from '../../services/app/hello';
+import PostComponent from '../../components/posts';
 
+const Post = ({ postData }) => {
   return (
     <>
       <Head>
@@ -14,8 +15,26 @@ const Post = ({ post_data }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <PostComponent postData={postData} />
     </>
   );
 };
+
+export async function getStaticProps(query) {
+  const response = await hello({
+    method: 'GET',
+    url: `/post/${query.params.id}`,
+  });
+
+  return {
+    props: {
+      postData: response,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: 'blocking' };
+}
 
 export default Post;

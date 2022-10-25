@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import theme from '../theme';
 import BaseLayout from '../layout';
@@ -6,13 +6,23 @@ import BaseLayout from '../layout';
 import GlobalStyles from '../theme/global';
 import { ThemeProvider } from 'styled-components';
 import { AppProvider } from '../services/app/app.context';
+import ActivitiesProvider from '../components/activities/activities.context';
 
 function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleTheme = () => {
+    if (localStorage) {
+      localStorage.setItem('dark-theme-preference', !darkMode);
+    }
     setDarkMode(!darkMode);
   };
+
+  useEffect(() => {
+    if (localStorage && localStorage.getItem('dark-theme-preference')) {
+      setDarkMode(localStorage.getItem('dark-theme-preference'));
+    }
+  }, []);
 
   return (
     <ThemeProvider
@@ -25,9 +35,11 @@ function MyApp({ Component, pageProps }) {
     >
       <GlobalStyles />
       <AppProvider>
-        <BaseLayout>
-          <Component {...pageProps} />
-        </BaseLayout>
+        <ActivitiesProvider>
+          <BaseLayout>
+            <Component {...pageProps} />
+          </BaseLayout>
+        </ActivitiesProvider>
       </AppProvider>
     </ThemeProvider>
   );
