@@ -50,7 +50,7 @@ const BaseLayout = ({ children }) => {
           <Button
             onClick={() => theme.toggleTheme()}
             icon={theme.darkMode ? <Sun /> : <Moon />}
-            id="toggle-dark-mode"
+            data-testid="theme-toggle-button"
           />
         </Spacer>
       </Header>

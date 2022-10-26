@@ -12,13 +12,13 @@ import * as Containers from './activity.containers';
 
 import { Spacer, Text } from '../UI';
 import { Divider } from './activity.styles';
-import { Reply, Write, Comment } from '../../icons';
+import { Write, Comment } from '../../icons';
 
 const Activity = ({ activity }) => {
   const date = new Date(activity.date);
 
   /**
-   * Return Icon based on type [WRITE | COMMENT | REPLY]
+   * Return Icon based on type [WRITE | COMMENT ]
    */
   const IconSwitch = (type) => {
     switch (type) {
@@ -26,13 +26,11 @@ const Activity = ({ activity }) => {
         return <Write />;
       case 'COMMENT':
         return <Comment />;
-      case 'REPLY':
-        return <Reply />;
     }
   };
 
   /**
-   * Return Copy based on type [WRITE | COMMENT | REPLY]
+   * Return Copy based on type [WRITE | COMMENT ]
    */
   const typeSwitch = (type) => {
     switch (type) {
@@ -40,8 +38,6 @@ const Activity = ({ activity }) => {
         return 'Wrote an article';
       case 'COMMENT':
         return 'Commented';
-      case 'REPLY':
-        return 'Replied';
     }
   };
 
@@ -59,13 +55,20 @@ const Activity = ({ activity }) => {
       </Containers.DateContainer>
       <Containers.AllActivitiesContainer>
         {activity.activities.map((item, index) => (
-          <Containers.ActivityDetailsContainer key={`activity_${index}`}>
+          <Containers.ActivityDetailsContainer
+            key={`activity_${index}`}
+            data-testid="activity_id"
+          >
             <Containers.ActivityTypeContainer>
               <Containers.ActivityIconContainer>
                 {IconSwitch(item.type)}
               </Containers.ActivityIconContainer>
               <Spacer x={[1]} />
-              <Text size={['mi']} color={'ACTIVITY'}>
+              <Text
+                size={['mi']}
+                color={'ACTIVITY'}
+                data-testid="activity_type"
+              >
                 {typeSwitch(item.type)}
               </Text>
             </Containers.ActivityTypeContainer>
