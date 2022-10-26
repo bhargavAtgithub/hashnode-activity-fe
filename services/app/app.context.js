@@ -10,7 +10,7 @@ import hello from './hello';
 import { getRandomDateTimeForPost, getRandomDateForComment } from '../helpers';
 
 export const AppProvider = ({ children }) => {
-  const baseUrl = `metaphorpsum.com`;
+  const baseUrl = `//metaphorpsum.com`;
   const [creatingPost, setCreatingPost] = useState(false);
   const [creatingComment, setCreatingComment] = useState(false);
 
