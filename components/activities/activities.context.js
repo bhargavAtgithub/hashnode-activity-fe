@@ -10,6 +10,12 @@ const ActivitiesProvider = ({ children }) => {
   const [moreRecords, setMoreRecords] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
 
+  const updateActivities = (activitiesObj) => {
+    const { activities } = activitiesObj;
+    setAllActivities([...activities]);
+    setMoreRecords(activitiesObj.moreRecords);
+  };
+
   const toNextPage = () => {
     setCurrentPage((pageNum) => pageNum + 1);
   };
@@ -17,12 +23,6 @@ const ActivitiesProvider = ({ children }) => {
   useEffect(() => {
     if (currentPage > 0) getMoreActivities();
   }, [currentPage]);
-
-  const updateActivities = (activitiesObj) => {
-    const { activities } = activitiesObj;
-    setAllActivities([...activities]);
-    setMoreRecords(activitiesObj.moreRecords);
-  };
 
   const getMoreActivities = async () => {
     try {
@@ -35,6 +35,20 @@ const ActivitiesProvider = ({ children }) => {
       let newActivities = [];
       const existingActivities = [...allActivities];
 
+      /**
+       * Activities are fetched by sorting using createdAt.
+       * Activities are grouped by dates.
+       * {
+       *  data: <date>,
+       *  activities: []
+       * }
+       *
+       * So, If the first group has the same date as the last group in the existing group of activities,
+       * merge them.
+       *
+       * Else just concat.
+       *
+       */
       if (
         response.activities[0]?.date ===
         existingActivities[existingActivities.length - 1].date
@@ -68,6 +82,11 @@ const ActivitiesProvider = ({ children }) => {
     return true;
   };
 
+  /**
+   * After a new activity.
+   * Insert the new activity into the exisiting activities if the date of the activity is already present.
+   * Just to avoid re-loading.
+   */
   const insertNewActivity = (activity) => {
     let newActivities = allActivities;
     for (let i = 0; i < newActivities.length; i++) {

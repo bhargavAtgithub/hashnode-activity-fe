@@ -39,9 +39,12 @@ const BaseLayout = ({ children }) => {
           <Button
             title={'Write'}
             onClick={async () => {
-              const writeActivity = await app.createRandomPost();
-              activities.insertNewActivity(writeActivity);
+              if (!app.creatingPost) {
+                const writeActivity = await app.createRandomPost();
+                activities.insertNewActivity(writeActivity);
+              }
             }}
+            isLoading={app.creatingPost}
           />
           <Spacer />
           <Button

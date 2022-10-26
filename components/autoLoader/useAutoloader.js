@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
+/**
+ * Call the new data loading function (callback) when the observing element comes into the viewport.
+ */
 const useAutoLoader = (next) => {
   const [loadMoreElement, setLoadMoreElement] = useState(null);
   const [autoLoad, setAutoLoad] = useState(false);

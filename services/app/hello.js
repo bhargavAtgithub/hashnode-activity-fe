@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+/**
+ * Helper function to call the serverless apis
+ * and we can also call external apis.
+ */
 const hello = async ({
   method = 'GET',
   url,

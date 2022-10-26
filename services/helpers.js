@@ -2,7 +2,7 @@ const getRandomDateTimeForPost = () => {
   const randomDate = getRandomNumberBetween(1, 31);
   const randomHour = getRandomNumberBetween(0, 24);
   const randomMinute = getRandomNumberBetween(0, 60);
-  const randomMonth = getRandomNumberBetween(0, new Date().getMonth());
+  const randomMonth = getRandomNumberBetween(0, 11);
 
   const now = new Date();
   let newDate = new Date(

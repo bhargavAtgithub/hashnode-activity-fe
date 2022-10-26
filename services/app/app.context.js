@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const defaultState = {};
 
@@ -11,8 +11,11 @@ import { getRandomDateTimeForPost, getRandomDateForComment } from '../helpers';
 
 export const AppProvider = ({ children }) => {
   const baseUrl = `http://metaphorpsum.com`;
+  const [creatingPost, setCreatingPost] = useState(false);
+  const [creatingComment, setCreatingComment] = useState(false);
 
   const createRandomPost = async () => {
+    setCreatingPost(true);
     try {
       const [randomTitleResponse, randomPostResponse] = await Promise.all([
         hello({
@@ -51,10 +54,13 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       // TODO: Handle error
       console.log(error);
+    } finally {
+      setCreatingPost(false);
     }
   };
 
   const createRandomCommentForPost = async (postId, postCreatedAt) => {
+    setCreatingComment(true);
     try {
       const randomCommentResponse = await hello({
         method: 'GET',
@@ -89,12 +95,19 @@ export const AppProvider = ({ children }) => {
       };
     } catch (error) {
       console.log(error);
+    } finally {
+      setCreatingComment(false);
     }
   };
 
   return (
     <AppContext.Provider
-      value={{ createRandomPost, createRandomCommentForPost }}
+      value={{
+        createRandomPost,
+        createRandomCommentForPost,
+        creatingPost,
+        creatingComment,
+      }}
     >
       {children}
     </AppContext.Provider>

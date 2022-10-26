@@ -5,10 +5,12 @@ import { Text, Button, Spacer } from '../UI';
 import Comment from './comment.component';
 import CommentLoader from './comment.loader';
 import { CommentsContext } from './comments.context';
+import useApp from '../../services/app/useApp';
 import useAutoLoader from '../autoLoader/useAutoloader';
 
 const Comments = () => {
   const commentsContext = useContext(CommentsContext);
+  const app = useApp();
   const { setLoadMoreElement, autoLoad, setAutoLoad } = useAutoLoader(
     commentsContext.toNextPage
   );
@@ -20,7 +22,12 @@ const Comments = () => {
         <Button
           title="Add comment"
           varient={2}
-          onClick={commentsContext.postNewComment}
+          onClick={() => {
+            if (!app.creatingComment) {
+              commentsContext.postNewComment();
+            }
+          }}
+          isLoading={app.creatingComment}
         />
       </Containers.CommentHeaderContainer>
       <Spacer y={[3]} />

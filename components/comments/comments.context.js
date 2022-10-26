@@ -12,6 +12,9 @@ const CommentsProvider = ({ children, postId, postCreatedAt }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [rolled, setRolled] = useState(false);
 
+  /**
+   * Scroll only on first fetch of the comments.
+   */
   useEffect(() => {
     if (allComments.length && !rolled) {
       const hashId = window.location.hash;
@@ -29,6 +32,9 @@ const CommentsProvider = ({ children, postId, postCreatedAt }) => {
     }
   }, [allComments, rolled]);
 
+  /**
+   * Get the comments till the requested comment is found.
+   */
   useEffect(() => {
     let hashId = window.location.hash;
     if (hashId) {
@@ -69,6 +75,7 @@ const CommentsProvider = ({ children, postId, postCreatedAt }) => {
   };
 
   const postNewComment = async () => {
+    
     const newCommentResponse = await app.createRandomCommentForPost(
       postId,
       postCreatedAt
@@ -79,6 +86,7 @@ const CommentsProvider = ({ children, postId, postCreatedAt }) => {
       { ...newCommentResponse, createdAt: newCommentResponse.commentDate },
     ]);
   };
+
   return (
     <CommentsContext.Provider
       value={{
