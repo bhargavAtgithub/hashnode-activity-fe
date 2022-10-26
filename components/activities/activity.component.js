@@ -15,7 +15,6 @@ import { Divider } from './activity.styles';
 import { Write, Comment } from '../../icons';
 
 const Activity = ({ activity }) => {
-  console.log(activity);
   const date = new Date(activity.date);
 
   /**

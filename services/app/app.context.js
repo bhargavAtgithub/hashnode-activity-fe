@@ -17,16 +17,14 @@ export const AppProvider = ({ children }) => {
   const createRandomPost = async () => {
     setCreatingPost(true);
     try {
-      const [randomTitleResponse, randomPostResponse] = await Promise.all([
-        hello({
-          method: 'GET',
-          externalUrl: baseUrl + '/sentences/1',
-        }),
-        hello({
-          method: 'GET',
-          externalUrl: baseUrl + '/paragraphs/5',
-        }),
-      ]);
+      const { randomTitleResponse, randomPostResponse } = await hello({
+        method: 'GET',
+        externalUrl: '/api/getRandomDataForPost',
+      });
+
+      if (!randomPostResponse || !randomTitleResponse) {
+        throw 'No data received';
+      }
 
       let randomDate = getRandomDateTimeForPost();
 
