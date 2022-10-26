@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (localStorage && localStorage.getItem('dark-theme-preference')) {
-      setDarkMode(localStorage.getItem('dark-theme-preference'));
+      setDarkMode(localStorage.getItem('dark-theme-preference') === 'true');
     }
   }, []);
 
