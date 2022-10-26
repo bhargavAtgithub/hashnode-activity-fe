@@ -9,6 +9,7 @@ const Activity = ({ activitiesObj }) => {
   const activities = useActivities();
 
   useEffect(() => {
+    console.log(activitiesObj);
     activities.updateActivities(activitiesObj);
   }, [activitiesObj]);
 
