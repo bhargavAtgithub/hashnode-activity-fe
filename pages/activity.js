@@ -29,7 +29,7 @@ const Activity = ({ activitiesObj }) => {
 
 export async function getServerSideProps(_context) {
   try {
-    const response = await hello({ method: 'GET', url: '/activities' });
+    const response = await hello({ method: 'GET', url: '/activities?page=0' });
 
     return {
       props: {

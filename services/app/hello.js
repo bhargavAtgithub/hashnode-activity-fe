@@ -20,7 +20,7 @@ const hello = async ({
 
     const response = await axios(config);
 
-    if (response.statusCode == 200) {
+    if (response.status == 200) {
       return response.data;
     }
   } catch (error) {
