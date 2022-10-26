@@ -13,7 +13,6 @@ const getRandomDateTimeForPost = () => {
     randomMinute,
     0
   );
-  console.log(newDate);
   return newDate;
 };
 
