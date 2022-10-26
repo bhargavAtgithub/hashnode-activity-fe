@@ -60,10 +60,12 @@ export const AppProvider = ({ children }) => {
   const createRandomCommentForPost = async (postId, postCreatedAt) => {
     setCreatingComment(true);
     try {
-      const randomCommentResponse = await hello({
+      const { randomCommentResponse } = await hello({
         method: 'GET',
-        externalUrl: baseUrl + '/sentences/1',
+        externalUrl: '/api/getRandomDataForComment',
       });
+
+      console.log(randomCommentResponse);
 
       let randomDate = getRandomDateForComment(postCreatedAt);
 
