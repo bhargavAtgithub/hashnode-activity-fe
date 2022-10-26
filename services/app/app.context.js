@@ -10,7 +10,6 @@ import hello from './hello';
 import { getRandomDateTimeForPost, getRandomDateForComment } from '../helpers';
 
 export const AppProvider = ({ children }) => {
-  const baseUrl = `//metaphorpsum.com`;
   const [creatingPost, setCreatingPost] = useState(false);
   const [creatingComment, setCreatingComment] = useState(false);
 
@@ -52,6 +51,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       // TODO: Handle error
       console.log(error);
+      throw 'Something went wrong';
     } finally {
       setCreatingPost(false);
     }
@@ -64,8 +64,6 @@ export const AppProvider = ({ children }) => {
         method: 'GET',
         externalUrl: '/api/getRandomDataForComment',
       });
-
-      console.log(randomCommentResponse);
 
       let randomDate = getRandomDateForComment(postCreatedAt);
 
@@ -95,6 +93,7 @@ export const AppProvider = ({ children }) => {
       };
     } catch (error) {
       console.log(error);
+      throw 'Something went wrong';
     } finally {
       setCreatingComment(false);
     }
