@@ -9,6 +9,7 @@ const ActivitiesProvider = ({ children }) => {
   const [allActivities, setAllActivities] = useState([]);
   const [moreRecords, setMoreRecords] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  const [recentActivities, setRecentActivities] = useState([]);
 
   const updateActivities = (activitiesObj) => {
     const { activities } = activitiesObj;
@@ -82,12 +83,43 @@ const ActivitiesProvider = ({ children }) => {
     return true;
   };
 
+  useEffect(() => {
+    if (recentActivities.length) {
+      setTimeout(() => {
+        setRecentActivities((allRecentActivities) => {
+          return allRecentActivities.slice(1);
+        });
+      }, 5000);
+    }
+  }, [recentActivities]);
+
   /**
    * After a new activity.
    * Insert the new activity into the exisiting activities if the date of the activity is already present.
    * Just to avoid re-loading.
    */
   const insertNewActivity = (activity) => {
+    /**
+     * To display the newly created post.
+     * So that the user will understand which post is created.
+     */
+    if (activity.type === 'WRITE') {
+      let newActivity = {
+        date: activity.date,
+        activities: [
+          {
+            postId: activity.postId,
+            createdAt: activity.date,
+            _id: activity._id,
+            title: activity.title,
+            type: 'WRITE',
+          },
+        ],
+      };
+      let exisitingNewActivities = [...recentActivities, newActivity];
+      setRecentActivities(exisitingNewActivities);
+    }
+
     let newActivities = allActivities;
     for (let i = 0; i < newActivities.length; i++) {
       if (activity.date === newActivities[i].date) {
@@ -110,6 +142,7 @@ const ActivitiesProvider = ({ children }) => {
         moreRecords: moreRecords,
         insertNewActivity,
         toNextPage,
+        recentActivities,
       }}
     >
       {children}

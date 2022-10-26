@@ -20,6 +20,17 @@ const Activities = () => {
 
   return (
     <Containers.ActivitiesContainer>
+      {activitiesContext.recentActivities.length ? (
+        <>
+          <Text size={['md']} weight={'md'}>
+            New activity
+          </Text>
+          {activitiesContext.recentActivities.map((item, index) => (
+            <Activity activity={item} key={`new_activities_${index}}`} />
+          ))}
+          <Spacer y={[3]} />
+        </>
+      ) : null}
       <Text size={['md']} weight={'md'}>
         Recent activity
       </Text>
