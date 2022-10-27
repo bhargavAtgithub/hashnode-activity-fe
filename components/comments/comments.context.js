@@ -75,15 +75,14 @@ const CommentsProvider = ({ children, postId, postCreatedAt }) => {
   };
 
   const postNewComment = async () => {
-    
     const newCommentResponse = await app.createRandomCommentForPost(
       postId,
       postCreatedAt
     );
 
     setAllComments((comments) => [
-      ...comments,
       { ...newCommentResponse, createdAt: newCommentResponse.commentDate },
+      ...comments,
     ]);
   };
 
